@@ -3,20 +3,28 @@ import React, {useState} from 'react';
 import styles from '../styles/styles.module.css'
 import noImage from '../assets/no-image.jpg'
 
-export const ProductCard = () => {
+import {useProduct} from "../hooks/useProduct";
 
-    const [counter, setCounter] = useState(0);
 
-    const increaseBy = (value: number) => {
-        setCounter(prevState => Math.max(prevState + value, 0))
-    }
+interface Product {
+    id: string,
+    title: string,
+    img?: string
+}
+
+interface Props {
+    product: Product
+}
+
+export const ProductCard = ({product}: Props) => {
+
+    const {counter, increaseBy} = useProduct()
 
     return (
         <div className={styles.productCard}>
-            <img className={styles.productImg} src="./coffee-mug.png" alt="Coffe Mug"/>
-            {/*<img className={styles.productImg} src={noImage} alt="Coffe Mug"/>*/}
+            <img className={styles.productImg} src={product.img ? product.img : noImage} alt="Coffe Mug"/>
             <span className={styles.productDescription}>
-                Coffee Mug
+                {product.title}
             </span>
             <div className={styles.buttonsContainer}>
                 <button className={styles.buttonMinus} onClick={() => increaseBy(-1)}>-</button>
