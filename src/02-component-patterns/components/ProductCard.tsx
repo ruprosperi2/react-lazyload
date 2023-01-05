@@ -19,8 +19,6 @@ export interface Props {
 
 export const ProductCard = ({children, product, className}: Props) => {
 
-    console.log(className)
-
     const {counter, increaseBy} = useProduct()
 
     return (
