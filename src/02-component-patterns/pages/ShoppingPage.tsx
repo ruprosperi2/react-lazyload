@@ -1,16 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {ProductCard, ProductButtons, ProductImage, ProductTitle} from "../components";
 
 import "./../styles/custom-style.css"
+import {Product} from "../interfaces/interfaces";
 
-const product = {
+const product1 = {
     id: '1',
     title: 'Coffee Mug',
     img: './coffee-mug.png'
 }
 
+const product2 = {
+    id: '2',
+    title: 'Coffee Mug - Meme',
+    img: './coffee-mug2.png'
+}
+
+const products: Product[] = [product1, product2]
+
+
+interface ProductInCard extends Product{
+    count: number
+}
+
 export const ShoppingPage = () => {
+    const [shoppingCard, setShoppingCard] = useState<{[key:string]:ProductInCard}>({});
     return (
         <div>
             <h1>Shopping Store</h1>
@@ -21,18 +36,28 @@ export const ShoppingPage = () => {
                 flexDirection: 'row',
                 flexWrap: 'wrap'
             }}>
-                <ProductCard product={product} className="bg-dark">
+
+                {
+                    products.map(product=>(
+                        <ProductCard product={product} className="bg-dark" key={product.id}>
+                            <ProductImage className="custom-image"/>
+                            <ProductTitle title={''} className="text-white text-bold"/>
+                            <ProductButtons className="custom-buttons"/>
+                        </ProductCard>
+                    ))
+                }
+            </div>
+
+            <div className="shopping-cart">
+                <ProductCard product={product2} className="bg-dark" >
                     <ProductImage className="custom-image"/>
-                    <ProductTitle title={''} className="text-white text-bold"/>
                     <ProductButtons className="custom-buttons"/>
                 </ProductCard>
 
-                <ProductCard product={product} >
-                    <ProductCard.Image  />
-                    <ProductCard.Title title={''}/>
-                    <ProductCard.Buttons/>
+                <ProductCard product={product1} className="bg-dark" >
+                    <ProductImage className="custom-image"/>
+                    <ProductButtons className="custom-buttons"/>
                 </ProductCard>
-
             </div>
 
         </div>
